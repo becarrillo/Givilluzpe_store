@@ -1,0 +1,11 @@
+@media screen and (max-height: 668px) {
+    #admin-cont {
+        height: 44pc;
+    }
+}
+
+@media screen and (max-height: 845px) {
+    #admin-cont {
+        height: 62pc;
+    }
+}
