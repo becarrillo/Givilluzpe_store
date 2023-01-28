@@ -5,10 +5,10 @@ import { FcExpand } from "react-icons/fc";
 import { WiMoonAltWaxingCrescent5 } from "react-icons/wi";
 
 
-const Header = ({togglerThemeRef}) => {
+const Header = ({themeTogglerRef}) => {
 
     return (
-        <header className="grid grid-cols-4 bg-cyan-100 shadow-sm shadow-cyan-200 justify-items-strech justify-self-start w-screen h-16 py-4">
+        <header className="grid grid-cols-4 bg-cyan-100 shadow-sm shadow-cyan-200 justify-items-strech justify-self-start w-screen h-14 py-4 fixed top-0">
             <a className="rounded-2xl justify-self-start shadow-md shadow-zinc-500 text-cyan-600 font-bold 
             ml-1 mt-0 px-3 py-1 w-24 h-8 hover:bg-zinc-200 hover:text-french-rose md:ml-3 lg:ml-3 xl:ml-2 2xl:ml-3" href="/"
             >
@@ -26,7 +26,7 @@ const Header = ({togglerThemeRef}) => {
                     Herramientas <FcExpand className="mx-auto my-1 text-sm text-cyan-600 md:ml-2 lg:ml-2 xl:ml-1 2xl:ml-1" />
                 </a>
             </div>
-            <button className="flex block ml-8 p-1 rounded-sm ring-2 ring-wisteria bg-zinc-600 text-cyan-50 w-28 h-8 hover:bg-cyan-900 hover:text-maximum-green-yellow hover:ring-french-rose" ref={togglerThemeRef}>
+            <button className="flex block ml-8 p-1 rounded-sm ring-2 ring-wisteria bg-zinc-600 text-cyan-50 w-28 h-8 hover:bg-cyan-50 hover:text-zinc-700 hover:ring-french-rose" ref={themeTogglerRef}>
                 <span className="ml-5">Modo</span>
                 <WiMoonAltWaxingCrescent5 className="ml-auto text-xl" />
             </button>

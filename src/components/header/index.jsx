@@ -1,6 +1,6 @@
 import React from "react";
-import OthersDevicesNavTemp from "./header.OthersDevicesNavTemp";
-import NavMobileDevicesMenu from "./header.NavMobileDevicesMenu";
+import OthersDevicesNavTemp from "./OthersDevicesNavTemp";
+import NavMobileDevicesMenu from "./NavMobileDevicesMenu";
 import { IoCloseSharp } from "react-icons/io5";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { Link } from "react-router-dom";
@@ -28,9 +28,10 @@ const Header = (props) => {
     }, [clickState]);
 
     return (
-        <header className="flex flex-col mx-0 mb-1 space-y-5 w-auto md:mb-1 lg:mb-1 xl:mb-1 2xl:mb-1" id="home_container">
-            <div className="fixed top-0 flex flex-row bg-zinc-600 px-6 py-2 border-2 border-black w-full opacity-90 
-            md:relative md:w-auto lg:relative lg:w-auto xl:relative xl:w-auto 2xl:relative 2xl:w-auto" id="main_title"
+        <header className="flex flex-col mb-1 space-y-1.5 w-auto md:mb-1 lg:mb-1 xl:mb-1 2xl:mb-1" id="home_container">
+            <div className="fixed top-0 flex flex-row rounded-lg bg-zinc-600 mx-0 px-6 py-2 border-2 border-black w-full opacity-90 md:relative md:w-auto 
+            md:mx-7 md:mt-1 lg:relative lg:w-auto lg:mx-7 lg:mt-1 xl:relative xl:w-auto xl:mx-7 xl:mt-1 2xl:mx-4 2xl:relative 2xl:w-auto 2xl:mx-8 2xl:mt-1" 
+            id="main_title"
             >
                 <div className="visible mt-0 px-0 py-3 pb-11 w-fit rounded-lg space-y-3.5 md:invisible md:py-0 md:pb-1 lg:invisible 
                 lg:py-0 lg:pb-0 xl:invisible xl:py-0 xl:pb-0 2xl:invisible 2xl:py-0 2xl:pb-0"

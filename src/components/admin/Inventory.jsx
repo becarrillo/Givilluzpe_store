@@ -4,12 +4,13 @@ import { BsPlusLg } from "react-icons/bs";
 import { MdOutlineSearch } from "react-icons/md";
 import { AiOutlineCheck } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
-import { useState, useRef } from "react";
+import { useState, useContext, useRef} from "react";
+import { TodoContext } from "../../context/TodoContext";
 
 
 const Inventory = () => {
     const [wasAddedInventoryIcon, setWasAddedInventoryIcon] = useState(false);
-    var oneProductFormInitContainerCls = "rounded-md outline-2 outline-dotted outline-zinc-500 grid grid-rows-4 space-y-3.5 mt-4 p-3 h-64"
+    var oneProductFormInitContainerCls = "rounded-md outline-2 outline-dotted outline-zinc-500 grid grid-rows-3 space-y-3.5 mt-4 p-3 h-64"
     const [classOfOutlinePassingProduct, setClassOfOutlinePassingProduct] = useState(oneProductFormInitContainerCls);
     // eslint-disable-next-line quotes
     const [productsInventory] = useState([]);
@@ -21,12 +22,18 @@ const Inventory = () => {
         if (!wasAddedInventoryIcon) {
             return <BsPlusLg className="mx-auto text-lg text-maximum-green-yellow md:text-xl lg:text-xl xl:text-xl 2xl:text-xl" />
         }
-        return <AiOutlineCheck className="mx-auto text-xl text-maximum-green-yellow" onMouseDown={ev => {handleInventoryList(ev)}} />
+        return <AiOutlineCheck className="mx-auto text-xl text-maximum-green-yellow" onMouseDown={ev => {handlerIndividualPValues(ev)}} />
     }
 
-    function handleInventoryList(ev) {
+    async function handleInventoryList(ev) {
         ev.preventDefault();
-
+        
+        for (let i=0; i<productsInventory.length; i++) {
+            var p = productsInventory[i];
+            updateInventaryP(p["ref"], parseInt(p["cantidad"]))
+              .then(data => window.alert("Producto actualizado ", data))
+              .catch(e=> {throw new Error("Error encontrado: ", e)})
+        }
     }
 
     const handlerIndividualPValues = (ev) => {
@@ -54,6 +61,7 @@ const Inventory = () => {
         setPdsQuantValue(newQuantity);
     }
 
+    const updateInventaryP = useContext(TodoContext).fb.updateInventarioProductos;
     const cyanProdsCard = useRef();
     const listInventarySendingBtn = useRef();
 
@@ -61,10 +69,10 @@ const Inventory = () => {
         <div className="grid grid-rows-12 bg-fuchsia-100 md:grid-cols-4 lg:grid-cols-4 
         xl:grid-cols-4 2xl:grid-cols-4 gap-1" id="inv-container"
         >
-            <div className="row-span-7 w-full h-screen bg-no-repeat md:col-span-2 lg:col-span-2 xl:col-span-2 2xl:col-span-2" id="asset_inventory0">
-                <div className="grid grid-row-7 gap-8 mt-9 py-12 justify-center space-x-4 space-y-5 md:py-20 lg:py-24 xl:py-24 2xl:py-24">
+            <div className="row-span-6 w-full pt-44 h-screen bg-no-repeat md:col-span-2 md:pt-2 lg:col-span-2 lg:pt-5 xl:col-span-2 xl:pt-5 2xl:col-span-2 2xl:pt-5" id="asset_inventory0">
+                <div className="grid grid-row-7 gap-8 mt-9 py-12 justify-center space-x-4 space-y-11 md:py-20 lg:py-24 xl:py-24 2xl:py-24">
                     <h4 className="rounded-3xl bg-pink-50 opacity-60 px-7 py-1 text-center 
-                    text-3xl font-semibold italic w-auto h-12"
+                    text-xl font-semibold italic w-auto h-12 md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl"
                     >
                         Gestión de inventarios  
                     </h4>
@@ -73,29 +81,26 @@ const Inventory = () => {
                     >
                         <label className="text-sm">Buscar producto</label>
                         <div className="flex flex-row space-x-3.5 mx-auto px-1">
-                            <input type="text" className="rounded-2xl ring-2 ring-french-rose bg-zinc-600 text-center text-pink-50 font-light w-40 h-7" placeholder=" Detalle" />
+                            <input type="text" className="rounded-2xl ring-2 ring-french-rose bg-zinc-600 text-center text-white brightness-105 font-light w-40 h-7" placeholder=" Detalle" />
                             <button type="submit" className="text-3xl mb-7"><MdOutlineSearch /></button>
                         </div>
                     </form>
                 </div>
             </div>
             
-            <div className="row-span-2 grid-rows-6 fixed bottom-0 md:relative lg:relative md:col-span-2 lg:col-span-2 
-            xl:col-span-2 2xl:col-span-2 space-y-1.5 admin-cont px-3 py-3 w-full h-7/12 md:py-24 lg:py-32 xl:py-32 2xl:py-36"
+            <div className="grid-rows-6 md:col-span-2 lg:col-span-2 
+            xl:col-span-2 2xl:col-span-2 space-y-1.5 admin-cont px-3 py-3 w-full h-full md:py-24 lg:py-32 xl:py-32 2xl:py-36"
             >
                 <h4 className="text-lg font-bold text-center text-pink-50">Crear inventario</h4>
                 <form className="row-span-3 rounded-md grid grid-cols-3 gap-5 divide-x divide-x-2 divide-zinc-500 
                 mx-auto p-3 w-11/12 bg-pink-50 sm:gap-5"
                 >
                     <fieldset className={classOfOutlinePassingProduct}>
-                        <button className="visible rounded-sm py-0 ml-auto w-1 h-1 md:w-7 md:h-7">
-                            <MdClose className="rounded-sm text-3xl text-zinc-500 mx-auto hover:scale-125 hover:transition-colors hover:duration-100" />
-                        </button>
                         <div className="grid grid-rows-4 space-y-1.5">
                             {
                                 wasAddedInventoryIcon ? (
                                     <>
-                                        <fieldset className="row-span-3 space-y-7 justify-self-center">
+                                        <div className="row-span-3 space-y-7 justify-self-center">
                                             <div className="row-span-2 space-x-2">
                                                 <label htmlFor="ref_0" className="text-md lg:text-lg xl:text-lg 2xl:text-lg">Producto</label>
                                                 <input type="text" className="w-20 h-7 rounded-lg bg-slate-200 text-center text-lg ring-2 ring-french-rose"
@@ -108,7 +113,7 @@ const Inventory = () => {
                                                     value={pdsQuantValue} id="quantity" placeholder="0" onChange={ev => { handleChangeOnPdsQuantity(ev) }}
                                                 />
                                             </div>
-                                        </fieldset>
+                                        </div>
                                         <button className="ml-auto rounded-3xl shadow-md shadow-zinc-500 bg-green-800 
                                         text-white w-7 h-7 hover:bg-green-700 md:w-9 md:h-9" onClick={ev => {handlerIndividualPValues(ev)}}
                                         >
@@ -148,7 +153,9 @@ const Inventory = () => {
                                             productsInventory.length >= 1 ? 
                                                 productsInventory.map(p => {
                                                     return (
-                                                        <ul className="flex flex-col rounded-sm ring-1 ring-zinc-600 ring-offset-2 shadow-lg shadow-air-super-blue bg-cyan-50 space-y-2 w-40 text-center mx-auto py-2 hover:bg-white" key={p["ref"]}>
+                                                        <ul className="flex flex-col ring-1 ring-zinc-600 ring-offset-2 shadow-lg shadow-air-super-blue 
+                                                        bg-cyan-50 space-y-2 w-40 text-center mx-auto py-2 hover:bg-white" key={p["ref"]}
+                                                        >
                                                             <li className="ml-auto mb-1 rounded-sm bg-red-500 text-lg text-white cursor-pointer hover:scale-125 
                                                             hover:transition-colors hover:duration-100 active:ring-2 active:ring-zinc-500 active:bg-red-400" onClick={ev => {
                                                                 productsInventory.length > 1 ? (
@@ -176,7 +183,9 @@ const Inventory = () => {
                                             (<></>)
                                         }
                                     </div>
-                                    <button className="ml-auto mt-2 rounded-3xl shadow-md shadow-zinc-500 bg-green-800 text-white w-10 h-10 hover:bg-green-700" ref={listInventarySendingBtn}>
+                                    <button className="ml-auto mt-2 rounded-3xl shadow-md shadow-zinc-500 bg-green-800 text-white w-10 h-10 hover:bg-green-700" 
+                                    ref={listInventarySendingBtn} onClick={ev => {handleInventoryList(ev)}}
+                                    >
                                         <BiListPlus className="mx-auto text-3xl text-maximum-green-yellow" />
                                     </button>
                                 </>
