@@ -14,24 +14,29 @@ const ProductosCards = lazy(() => import("../productos/Card"));
 
 const Landing = () => {
     const contextApi = useContext(TodoContext);
-    const [pagination, setPagination] = useState(1);
+    const myPagination = parseInt(localStorage.getItem("pagination"))
+    const [pagination, setPagination] = useState(0);
     const [totalElementsInCol, setTotalElementsInCol] = useState(0);
     const [elemsPageCount, setElemsPageCount] = useState(0);
-    // eslint-disable-next-line quotes
     const [productos, setProductos] = useState([]);
-    const [pagesBeginFragment, setPagesBeginFragment] = useState(0);
-    const limit = 15;
+    const [pagesBeginFragment, setPagesBeginFragment] = useState(1);
+    // en: We save this number, 16 products per page  // es: Guardamos este núm, 16 productos por página.
+    const limit = 16;
 
     useEffect(() => {
-        setInterval(() => {
-            setPagination(parseInt(localStorage.getItem("pagination")));
-            console.log(localStorage.getItem("pagination"), " is the pagination in sec efect hook!");
-        }, 750);
-    }, []);
-    
+        console.log("probando si hay bucle infinito");
+        setPagination(myPagination);
+        
+        // en: Update the pages beginning fragment state   // es: se actualiza el estado de comienzo del fragmento de paginación
+        const fragment = Math.ceil(pagination / 8);
+        setPagesBeginFragment(fragment);   // pagesBeginFragment => {en: this is pagination over pagination // es: esto es la paginación de la paginación}
+        console.log(pagesBeginFragment, " is Fragment");
+        console.log(myPagination, " is myPagination");
+    }, [pagination]);
+
     useEffect(() => {
         contextApi.fb.getProductosCount().then(n => { setTotalElementsInCol(n) });
-        
+
         var pObj = [];
         const awaitProductos = () => {
             contextApi.fb.getProductos(pagination, limit).then(arr => {
@@ -44,14 +49,9 @@ const Landing = () => {
                         "cantidad": p.data["cantidad"],
                         "foto_url": p.data["foto_url"]
                     });
-                    
-                    if ((!(arr.length <= 6*limit)) && (pagination >= 7)) {
-                        const aprox = Math.ceil(pagination / 6);
-                        setPagesBeginFragment(aprox);
-                    } else setPagesBeginFragment(1);
-                })
+                });
                 setProductos(pObj);
-            }).catch(err => { throw new Error("Nuevo error: " + err) })
+            }).catch(err => { throw new Error("Nuevo error: " + err) });
         }
         awaitProductos();
         setElemsPageCount(productos.length);
@@ -78,14 +78,14 @@ const Landing = () => {
 
     return (
         <div className="flex flex-col bg-zinc-200 w-screen h-fit overflow-x-hidden md:w-auto lg:w-screen xl:w-screen 2xl:w-screen">
-            <Header clsNameOfMobileNav={mobileClsValue} />
-            
+            <Header clsNameOfMobileNav={mobileClsValue} />  {/* <= Header component with mobile responsive class into a prop */}
+
             <main className="grid grid-rows-1 rounded-lg divide-y-2 divide-dotted divide-wisteria ring-1 ring-wisteria mt-24 px-3 py-5 w-11/12 mx-auto my-1">
                 <div className="grid grid-cols-3 rounded-2xl bg-slate-200 w-11/12 md:w-auto h-14  mb-5 py-2 md:px-32 md:space-y-5 lg:space-y-5 lg:px-36 xl:space-y-5 xl:px-40 2xl:space-y-5 2xl:px-48">
                     <form className="col-span-3 justify-self-center">
                         <input type="text" placeholder="Detalle producto" className="rounded-l-3xl shadow-sm shadow-zinc-500 text-center text-sm w-44 h-9 ml-1 hover:ring-2 hover:ring-apple-green" />
-                        <input type="submit" value="Buscar " className="rounded-r-3xl shadow-sm shadow-cyan-900 hover:transition-transform hover:ease-in hover:delay-175 mr-1 px-2 h-9 bg-middle-blue text-lg text-white font-semibold 
-                        cursor-pointer hover:-translate-y--1 hover:scale-110 hover:bg-cyan-100 hover:text-black" 
+                        <input type="submit" value="Buscar " className="rounded-r-3xl shadow-sm shadow-cyan-900 hover:transition-transform hover:ease-in hover:delay-175 mr-1 px-2 h-9 bg-middle-blue 
+                        text-lg text-white font-semibold cursor-pointer hover:-translate-y--1 hover:scale-110 hover:bg-cyan-100 hover:text-black"
                         />
                     </form>
                 </div>
@@ -96,10 +96,10 @@ const Landing = () => {
                     >
                         Catálogo
                     </h2>
-                
+
                     <ProductosCards items={productos} />
                 </div>
-                    
+
             </main>
             <button className="flex flex-row animate-pulse rounded-3xl mt-72 mr-1 px-5 
             pt-7 self-end w-24 h-20 bg-french-rose text-lg ring-2 ring-white fixed"
@@ -107,12 +107,13 @@ const Landing = () => {
                 <RiChat3Line />
                 Chat
             </button>
-            <LandingPagination 
-                limit={limit} 
-                pageProductosCount={elemsPageCount} 
-                pagesBeginFragment={pagesBeginFragment} 
-                start={limit*(pagination-1)+1} 
-                totalElementsInCol={totalElementsInCol} 
+            <span className="self-end mr-6">Pág. {pagination}</span>
+            <LandingPagination
+                limit={limit}
+                pageProductosCount={elemsPageCount}
+                pagesBeginFragment={pagesBeginFragment}
+                start={limit * (pagination - 1) + 1}
+                totalElementsInCol={totalElementsInCol}
             />
             <Footer />
         </div>

@@ -12,12 +12,11 @@ import {
   query,
   orderBy,
   limit,
-  startAt,
-  
+  startAt
 } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { getStorage, uploadBytes, getDownloadURL, ref } from "firebase/storage"
 import config from "./config/config";
-import { v4 as uuidv4 } from "uuid";
+// import { v4 as uuidv4 } from "uuid";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -41,6 +40,7 @@ const adminsCol = collection(db, "administradores");
 // eslint-disable-next-line quotes
 async function getProductos(page=0, lm) {
   const startRef = async () => getProductoRefByIndex(lm*(page-1));
+  // en: We get only the products into a range (start to a limit)  // es: obtenemos los productos solamente dentro de un rango
   const paginated =  query(productosCol, orderBy("referencia"), startAt(await startRef().then(key => key)), limit(lm));
   const productsSnapshot = await getDocs(paginated);
   var productsList = productsSnapshot.docs.map(doc => {return {"id": doc.id, "data": doc.data()}});
@@ -60,8 +60,8 @@ async function getProducto(ref) {
 
 async function getProductoRefByIndex(index) {
   const myIndex = index;
-  const response = await (await getDocs(productosCol)).docs.at(myIndex).id;
-  return response;
+  const myRef = await (await getDocs(productosCol)).docs.at(myIndex).id;
+  return myRef;
 }
 
 async function saveProducto(ref, producto) {
@@ -168,9 +168,18 @@ async function removeAdmin(admin) {
 }
 
 async function uploadFile(file) {
-  const storageRef = ref(storage, uuidv4());
-  await uploadBytes(storageRef, file).then(d=> d);
+  // eslint-disable-next-line quotes
+  const storageRef = ref(storage, encodeURI(__dirname.replace('%', '/') + file.name.replace('%', '/')));
+  const newMetadata = {
+    cacheControl: "public,max-age=300",
+    contentType: "image/jpeg"
+  }
+  const r = await uploadBytes(storageRef, file, newMetadata);
+
+  console.log(r);
+
   const url = await getDownloadURL(storageRef);
+  
   return url;
 }
 

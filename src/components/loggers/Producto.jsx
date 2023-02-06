@@ -3,12 +3,12 @@
 import { useState, useContext, useEffect } from "react";
 import { TodoContext } from "../../context/TodoContext";
 import { useNavigate } from "react-router-dom";
-import { ChaoticOrbit } from '@uiball/loaders'
+import { ChaoticOrbit } from '@uiball/loaders';
 import firebase from "../../firebase";
 
 
 export function ProductoLogger() {
-    const [picFileSt, setPicFileSt] = useState(null);
+    var picFileSt = null;
     const apiContext = useContext(TodoContext);
     const navigate = useNavigate();
     const submitHandler = async ev => {
@@ -29,20 +29,17 @@ export function ProductoLogger() {
                     <h3 className="text-lg mx-auto">Esperar</h3>
                 </div>
             );
-            if (picFileSt) {
-                const picUrlResult = await apiContext.fb.uploadFile(picFileSt);
-                console.log(picUrlResult, " es el resultado de picUrlResult");
-                apiContext.productObj["foto_url"] = picUrlResult;
-                console.log(apiContext.productObj, " Es el objeto producto nuevo pero ya con la foto_url");
-            }
-            console.log(apiContext.productObj);
+            console.log(picFileSt);
+            const picUrlResult = await apiContext.fb.uploadFile(picFileSt);
+            console.log(picUrlResult, " es el resultado de picUrlResult");
+            apiContext.productObj["foto_url"] = picUrlResult;
             await firebase.saveProducto(apiContext.productObj["referencia"], apiContext.productObj);
             navigate("/admin");
         } else console.log("Guardado cancelado");
     }
 
     const [pageJsxTemplate, setPageJsxTemplate] = useState(
-        <form onSubmit={submitHandler} className="flex flex-col space-y-9 px-2 py-3">
+        <div className="flex flex-col space-y-9 px-2 py-3">
             <h2 className="text-center text-2xl text-cyan-800 font-semibold mt-3">Confirmar datos producto nuevo</h2>
             <hr />
             <table className="shadow-sm shadow-zinc-500 mb-7">
@@ -51,7 +48,11 @@ export function ProductoLogger() {
                         <th className="text-start">Campo</th>
                         <th>Valor</th>
                         <th className="text-start">
-                            <button className="rounded-sm shadow-sm shadow-zinc-100 bg-blue-500 px-2 hover:bg-blue-400">Editar</button>
+                            <button className="rounded-sm shadow-sm shadow-zinc-100 
+                            bg-blue-500 px-2 hover:bg-blue-400"
+                            >
+                                Editar
+                            </button>
                         </th>
                     </tr>
                 </thead>
@@ -94,20 +95,23 @@ export function ProductoLogger() {
                 </tbody>
             </table>
 
-            <div className="flex flex-col rounded-lg bg-gray-100 shadow-sm shadow-zinc-500 mx-auto px-2 py-3 w-full md:w-7/12 lg:w-5/12 xl:w-5/12 2x:w-5/12">
+            <form className="flex flex-col rounded-lg bg-gray-100 shadow-sm shadow-zinc-500 mx-auto px-2 py-3 
+            w-full md:w-7/12 lg:w-5/12 xl:w-5/12 2x:w-5/12" onSubmit={submitHandler}
+            >
                 <h3 className="text-lg text-cyan-900 mx-auto py-5">Agrega imágen/fotografía desde tus archivos</h3>
+                
                 <div className="grid grid-rows-2 mx-auto">
                     <label htmlFor="pic-file" className="text-sm font-semibold">Imágen/fotografía</label>
-                    <input type="file" accept="image/jpg, image/jpeg, image/png" id="pic-file"
-                    required={true}
-                    onChange={ev => { setPicFileSt(ev.target.files.item(0)) }}
+                    <input type="file" accept="image/jpeg" id="pic-file" 
+                        onChange={ev => { 
+                            picFileSt = ev.target.files.item(0)
+                        }}
                     />
-                    <small className="text-red-500">** Obligatorio</small>
                 </div>
-            </div>
 
-            <button type="submit" className="rounded-sm bg-green-600 text-cyan-50 font-semibold self-center mt-7 px-7 py-2 w-7/12 hover:bg-green-500">Guardar/Subir</button>
-        </form>
+                <button type="submit" className="rounded-sm bg-green-600 text-cyan-50 font-semibold self-center mt-7 px-7 py-2 w-7/12 hover:bg-green-500">Guardar/Subir</button>
+            </form>
+        </div>
     );
 
     useEffect(() => {

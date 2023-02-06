@@ -10,7 +10,7 @@ import { TodoContext } from "../../context/TodoContext";
 
 const Inventory = () => {
     const [wasAddedInventoryIcon, setWasAddedInventoryIcon] = useState(false);
-    var oneProductFormInitContainerCls = "rounded-md outline-2 outline-dotted outline-zinc-500 grid grid-rows-3 space-y-3.5 mt-4 p-3 h-64"
+    var oneProductFormInitContainerCls = "rounded-md outline-1 outline-dashed outline-zinc-500 grid grid-rows-3 space-y-3.5 mt-4 p-3 h-64 md:outline-2 lg:outline-2 xl:outline-2 2xl:outline-2"
     const [classOfOutlinePassingProduct, setClassOfOutlinePassingProduct] = useState(oneProductFormInitContainerCls);
     // eslint-disable-next-line quotes
     const [productsInventory] = useState([]);
@@ -69,7 +69,7 @@ const Inventory = () => {
         <div className="grid grid-rows-12 bg-fuchsia-100 md:grid-cols-4 lg:grid-cols-4 
         xl:grid-cols-4 2xl:grid-cols-4 gap-1" id="inv-container"
         >
-            <div className="row-span-6 w-full pt-44 h-screen bg-no-repeat md:col-span-2 md:pt-2 lg:col-span-2 lg:pt-5 xl:col-span-2 xl:pt-5 2xl:col-span-2 2xl:pt-5" id="asset_inventory0">
+            <div className="row-span-6 w-full pt-44 bg-no-repeat md:col-span-2 md:pt-2 lg:col-span-2 lg:pt-5 xl:col-span-2 xl:pt-5 2xl:col-span-2 2xl:pt-5" id="asset_inventory0">
                 <div className="grid grid-row-7 gap-8 mt-9 py-12 justify-center space-x-4 space-y-11 md:py-20 lg:py-24 xl:py-24 2xl:py-24">
                     <h4 className="rounded-3xl bg-pink-50 opacity-60 px-7 py-1 text-center 
                     text-xl font-semibold italic w-auto h-12 md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl"
@@ -88,11 +88,11 @@ const Inventory = () => {
                 </div>
             </div>
             
-            <div className="grid-rows-6 md:col-span-2 lg:col-span-2 
-            xl:col-span-2 2xl:col-span-2 space-y-1.5 admin-cont px-3 py-3 w-full h-full md:py-24 lg:py-32 xl:py-32 2xl:py-36"
+            <div className="row-span-6 md:col-span-2 lg:col-span-2 xl:col-span-2 2xl:col-span-2 
+            space-y-9 admin-cont px-3 py-12 w-full md:py-24 lg:py-32 xl:py-32 2xl:py-36"
             >
                 <h4 className="text-lg font-bold text-center text-pink-50">Crear inventario</h4>
-                <form className="row-span-3 rounded-md grid grid-cols-3 gap-5 divide-x divide-x-2 divide-zinc-500 
+                <form className="row-span-3 rounded-md grid grid-cols-3 gap-5
                 mx-auto p-3 w-11/12 bg-pink-50 sm:gap-5"
                 >
                     <fieldset className={classOfOutlinePassingProduct}>

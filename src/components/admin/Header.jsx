@@ -26,7 +26,7 @@ const Header = ({themeTogglerRef}) => {
                     Herramientas <FcExpand className="mx-auto my-1 text-sm text-cyan-600 md:ml-2 lg:ml-2 xl:ml-1 2xl:ml-1" />
                 </a>
             </div>
-            <button className="flex block ml-8 p-1 rounded-sm ring-2 ring-wisteria bg-zinc-600 text-cyan-50 w-28 h-8 hover:bg-cyan-50 hover:text-zinc-700 hover:ring-french-rose" ref={themeTogglerRef}>
+            <button className="flex ml-8 p-1 rounded-sm ring-2 ring-wisteria bg-zinc-600 text-cyan-50 w-28 h-8 hover:bg-cyan-50 hover:text-zinc-700 hover:ring-french-rose" ref={themeTogglerRef}>
                 <span className="ml-5">Modo</span>
                 <WiMoonAltWaxingCrescent5 className="ml-auto text-xl" />
             </button>

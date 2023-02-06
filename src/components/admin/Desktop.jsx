@@ -82,16 +82,15 @@ const Desktop = () => {
     useEffect(() => {
         !themeTogglerAction ? (
             console.log("This IS ", contextApi.screenThemeToggler)
-        )
-            :
-            (
-                mutablePageContainerCls.current = initialPageContainerCls + " bg-zinc-100",
-                mutableDateTimeClass.current = INIT_DATE_TIME_STR + " text-maximum-green-yellow",
-                mutableInitialPageTgThemeBtnCls.current =
-                "grid grid-cols-2 w-28 ml-9 rounded-md fixed top-16 opacity-75 mr-2 justify-self-end bg-white text-zinc-700 ring-2 ring-wisteria justify-items-center px-3 py-1 transition ease-in delay-300 hover:-translate-y-1 hover:scale-110 hover:bg-zinc-100 hover:text-french-rose duration-200 hover:skew-y-6"
-            );
-        setThemeTogglerAction(contextApi.screenThemeToggler),
-            console.log(mutablePageContainerCls.current, " is initialPageCnt...");
+        ) : (
+            mutablePageContainerCls.current = initialPageContainerCls + " bg-zinc-100",
+            mutableDateTimeClass.current = INIT_DATE_TIME_STR + " text-maximum-green-yellow",
+            mutableInitialPageTgThemeBtnCls.current =
+            "grid grid-cols-2 w-28 ml-9 rounded-md fixed top-16 opacity-75 mr-2 justify-self-end bg-white text-zinc-700 ring-2 ring-wisteria justify-items-center px-3 py-1 transition ease-in delay-300 hover:-translate-y-1 hover:scale-110 hover:bg-zinc-100 hover:text-french-rose duration-200 hover:skew-y-6"
+        );
+        setThemeTogglerAction(contextApi.screenThemeToggler);
+        console.log(mutablePageContainerCls.current, " is initialPageCnt...");
+        console.log(`${process.env.REACT_APP_BUCKET}`, " is the BUCKET LINK IN ENV VARIABLES");
     }, []);
 
     useEffect(() => {
@@ -139,7 +138,7 @@ const Desktop = () => {
                 </div>
                 <span className={mutableDateTimeClass.current}>{newDateAndTime}</span>
             </div>
-            <div className="grid grid-cols-12 row-span-9 rounded-md ring-1 ring-black z-10 admin-cont shadow-sm shadow-slate-200 mx-0 mt-1 py-5 md:mx-2 lg:mx-2 xl:mx-2 2xl:mx-2">
+            <div className="grid grid-cols-12 row-span-9 rounded-md ring-1 ring-black z-10 admin-background-img shadow-sm shadow-slate-200 mx-0 mt-1 py-5 md:mx-2 lg:mx-2 xl:mx-2 2xl:mx-2">
                 <h3 className="col-span-7 mr-7 mt-4 pt-0 h-5 text-end text-2xl text-cyan-50 px-auto font-bold ml-2 py-8 md:text-3xl md:ml-auto lg:text-4xl lg:ml-auto xl:text-4xl xl:ml-auto 2xl:text-4xl 2xl:ml-auto"
                 >
                     Administrador
@@ -169,18 +168,26 @@ const Desktop = () => {
             </div>
 
             <div className="row-span-12 grid grid-cols-12 px-0 py-2 md:mr-4 md:px-1 lg:mr-12 lg:px-1 xl:mr-11 xl:px-1 2xl:mr-4 2xl:px-2">
+
                 <div className="col-span-12 flex flex-col rounded-md py-2 h-full text-center 
                 space-y-7 md:col-span-3 md: md:visible lg:col-span-3 xl:col-span-2 2xl:col-span-4"
                 >
-                    <button className="rounded-xl ml-2" id="burguer_admin_btn" ref={menuBarBurguerClickBtnRef}>
-                        <div className={burguerMenuFirstDivClass}></div>
-                        <div className={burguerMenuScDivClass}></div>
-                        <div className={burguerMenuLastDivClass}></div>
-                    </button>
-                    <hr></hr>
+                    <div className="flex flex-row px-2">
+                        <button className="rounded-xl ml-2" id="burguer_admin_btn" ref={menuBarBurguerClickBtnRef}>
+                            <div className={burguerMenuFirstDivClass}></div>
+                            <div className={burguerMenuScDivClass}></div>
+                            <div className={burguerMenuLastDivClass}></div>
+                        </button>
+                        <span className="text-md text-cyan-600 ml-auto md:ml-0 md:mx-auto md:text-lg 
+                        lg:ml-0 lg:mx-auto lg:text-lg xl:ml-0 xl:mx-auto xl:text-lg 2xl:ml-0 2xl:mx-auto 2xl:text-lg"
+                        >
+                            Hola Admin
+                        </span>
+                    </div>
+
                     <div className={sideMenuClass}>
                         <h5 className="font-semibold h-8 text-apple-green mx-auto">Menú</h5>
-                        <form className="space-y-0.5 px-1 pb-2 mx-auto">
+                        <form className="space-y-0.5 px-1 pb-4 mx-auto">
                             <label htmlFor="#search" className="text-sm text-white mb-1">Filtrar producto</label>
                             <div className="space-x-1.5 self-center">
                                 <input type="search" name="search" id="search" className="rounded-3xl h-7 w-40
@@ -189,16 +196,14 @@ const Desktop = () => {
                             </div>
                         </form>
                         <hr />
-                        <ul className="flex flex-col space-y-9">
+                        <ul className="flex flex-col space-y-9 py-5">
                             <li className="flex flex-row mx-auto text-white cursor-pointer hover:text-maximum-green-yellow" onClick={() => {
                                 !actionShowedPList ? (
                                     setActionShowedList(true), auxProds = manageProductsData(), setProductos(auxProds), console.log(productos)
-                                )
-                                    :
-                                    setActionShowedList(false)
+                                ) : setActionShowedList(false)
                             }}>
-                                Listar productos 
-                                <ImCircleDown className="ml-1 mt-1" />
+                                Listar/Ocultar productos
+                                <ImCircleDown className="ml-1 mt-1 text-xl" />
                             </li>
 
                             <li className="text-white cursor-pointer hover:text-maximum-green-yellow">
@@ -209,13 +214,10 @@ const Desktop = () => {
 
                             <li className="cursor-pointer hover:text-maximum-green-yellow">
                                 <ModalAddProducto />
-                                <a href="#add_prod_modal" rel="modal:open" className="mx-auto space-x-1">
-                                    <span className="text-white hover:text-maximum-green-yellow">Producto nuevo</span>
-                                    <button className="bg-cyan-500 rounded-md h-5"><BiPlus className="text-xl text-white" /></button>
+                                <a href="#add_prod_modal" rel="modal:open" className="text-white hover:text-maximum-green-yellow mx-auto space-x-1">
+                                    <span>Producto nuevo</span>
+                                    <button className="bg-cyan-500 rounded-md h-5 text-xl"><BiPlus /></button>
                                 </a>
-                            </li>
-                            <li className="text-white cursor-pointer hover:text-maximum-green-yellow">
-                                Listar categorías
                             </li>
                             <li className="text-white cursor-pointer hover:text-maximum-green-yellow">
                                 <Link to="/admin/pedidos">
@@ -225,13 +227,25 @@ const Desktop = () => {
                         </ul>
                     </div>
                 </div>
-                <div className="row-span-2 col-start-1 col-span-10 ml-8 mt-7 pl-6 py-0 w-auto space-y-3.5 text-2xl 
+                <div className="row-span-2 col-start-1 col-span-10 ml-8 mt-12 pl-6 py-0 w-auto space-y-3.5 text-xl 
                 md:col-span-8 lg:col-span-8 xl:col-span-9 2xl:col-span-9"
                 >
                     {
                         !actionShowedPList ?
                             (
-                                <span className="text-md">Hola Admin</span>
+                                <div className="grid grid-rows-2 rounded-sm ring-1 bg-slate-200 ring-zinc-500 px-5 py-2 ">
+                                    <h4>Productos</h4>
+                                    <button className="rounded-sm bg-zinc-500 text-md text-white 
+                                    justify-self-center px-11 py-1 hover:bg-air-super-blue"  onClick={() => {
+                                            !actionShowedPList ? (
+                                                setActionShowedList(true), auxProds = manageProductsData(), setProductos(auxProds), console.log(productos)
+                                            ) : setActionShowedList(false)
+                                        }
+                                        }>
+                                        Listar
+                                    </button>
+                                </div>
+
                             )
                             :
                             (
@@ -256,10 +270,10 @@ const Desktop = () => {
                                 </div>
                             )
                     }
-                    <div className="rounded-2xl grid grid-rows-2 admin-cont text-white mx-auto mb-9 px-3 py-2 w-full md:w-auto lg:w-auto xl:w-full 2xl:w-full">
-                        <span className="text-maximum-green-yellow">Pedidos pendientes: </span>
+                    <div className="rounded-2xl grid grid-rows-2  text-zinc-500 mx-auto mb-9 px-3 py-2 w-full md:w-auto lg:w-auto xl:w-full 2xl:w-full">
+                        <span>Pedidos pendientes: </span>
 
-                        <small className="ml-7 text-cyan-50">Menú / Administrar pedidos</small>
+                        <small className="ml-7">Menú / Administrar pedidos</small>
                     </div>
                 </div>
             </div>
