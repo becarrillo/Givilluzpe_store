@@ -8,7 +8,8 @@ import { WiMoonAltWaxingCrescent5 } from "react-icons/wi";
 const Header = ({themeTogglerRef}) => {
 
     return (
-        <header className="grid grid-cols-4 bg-cyan-100 shadow-sm shadow-cyan-200 justify-items-strech justify-self-start w-screen h-14 py-4 fixed top-0">
+        <header className="grid grid-cols-4 bg-cyan-100 shadow-sm shadow-cyan-200 justify-items-strech 
+          justify-self-start w-screen h-14 py-4 fixed top-0 opacity-80">
             <a className="rounded-2xl justify-self-start shadow-md shadow-zinc-500 text-cyan-600 font-bold 
             ml-1 mt-0 px-3 py-1 w-24 h-8 hover:bg-zinc-200 hover:text-french-rose md:ml-3 lg:ml-3 xl:ml-2 2xl:ml-3" href="/"
             >

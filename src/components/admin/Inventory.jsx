@@ -4,7 +4,7 @@ import { BsPlusLg } from "react-icons/bs";
 import { MdOutlineSearch } from "react-icons/md";
 import { AiOutlineCheck } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
-import { useState, useContext, useRef} from "react";
+import { useState, useContext, useRef } from "react";
 import { TodoContext } from "../../context/TodoContext";
 
 
@@ -67,9 +67,11 @@ const Inventory = () => {
 
     return (
         <div className="grid grid-rows-12 bg-fuchsia-100 md:grid-cols-4 lg:grid-cols-4 
-        xl:grid-cols-4 2xl:grid-cols-4 gap-1" id="inv-container"
+        xl:grid-cols-4 2xl:grid-cols-4 gap-1" id="inv-container" 
         >
-            <div className="row-span-6 w-full pt-44 bg-no-repeat md:col-span-2 md:pt-2 lg:col-span-2 lg:pt-5 xl:col-span-2 xl:pt-5 2xl:col-span-2 2xl:pt-5" id="asset_inventory0">
+            <div className="row-span-6 w-full pt-44 bg-no-repeat md:col-span-2 md:pt-2 lg:col-span-2 lg:pt-5 
+              xl:col-span-2 xl:pt-5 2xl:col-span-2 2xl:pt-5" id="asset_inventory0"
+            >
                 <div className="grid grid-row-7 gap-8 mt-9 py-12 justify-center space-x-4 space-y-11 md:py-20 lg:py-24 xl:py-24 2xl:py-24">
                     <h4 className="rounded-3xl bg-pink-50 opacity-60 px-7 py-1 text-center 
                     text-xl font-semibold italic w-auto h-12 md:text-2xl lg:text-2xl xl:text-3xl 2xl:text-3xl"
@@ -81,7 +83,11 @@ const Inventory = () => {
                     >
                         <label className="text-sm">Buscar producto</label>
                         <div className="flex flex-row space-x-3.5 mx-auto px-1">
-                            <input type="text" className="rounded-2xl ring-2 ring-french-rose bg-zinc-600 text-center text-white brightness-105 font-light w-40 h-7" placeholder=" Detalle" />
+                            <input 
+                                type="text" 
+                                className="rounded-2xl ring-2 ring-french-rose bg-zinc-600 text-center text-white brightness-105 font-light w-40 h-7" 
+                                placeholder=" Detalle" 
+                            />
                             <button type="submit" className="text-3xl mb-7"><MdOutlineSearch /></button>
                         </div>
                     </form>

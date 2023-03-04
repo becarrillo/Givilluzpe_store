@@ -5,11 +5,12 @@ import api from "../firebase";
 
 export const TodoContext = createContext({
     fb: api,
-    admin: "1",
-    password: "1",
-    isAuth:false,
-    screenThemeToggler: false,
-    productObj: null
+    user: null,
+    productObj: null,
+    productFilterResult: null,
+    pagination: null,
+    setIdProductoPedido: null,
+    screenThemeToggler: false
 });
 
 // eslint-disable-next-line react/prop-types
@@ -19,11 +20,12 @@ export const TodoProv = ({ children }) => {
         // eslint-disable-next-line react/react-in-jsx-scope
         <TodoContext.Provider value={{
             fb: api,
-            admin: "1",
-            password: "1",
-            isAuth: false,
-            screenThemeToggler: false,
-            productObj: null
+            user: null,
+            productObj: null,
+            productFilterResult: null,
+            pagination: null,
+            setIdProductoPedido: null,
+            screenThemeToggler: false
         }}>
             {children}
         </TodoContext.Provider>

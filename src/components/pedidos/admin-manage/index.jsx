@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { TodoContext } from "../../context/TodoContext";
-import AdminHeader from "../admin/Header";
+import { TodoContext } from "../../../context/TodoContext";
+import AdminHeader from "../../admin/Header";
 
 /* eslint-disable react/react-in-jsx-scope */
 const Pedidos = () => {
@@ -41,12 +41,13 @@ const Pedidos = () => {
         formRef.current.addEventListener("submit", ev => {
             ev.preventDefault();
             const data = new FormData(formRef.current);
+
             for(let d of data) {
                 if (d[1]) {
-                   console.log(d[1], " is last");
                    setPedidoAttrOpt(d[1]);
                 } 
             }
+            
         });
     }, []);
 
@@ -78,25 +79,36 @@ const Pedidos = () => {
                         <form className="flex flex-col space-x-11" ref={formRef} >
                             <div className="flex flex-row space-x-4 mb-4">
                                 <h6>Filtrar por:</h6>
-                                <div className="flex block space-x-1.5">
+                                <div className="flex space-x-1.5">
                                     <input type="radio" name="p-option" id="date" value="fecha" />
                                     <label htmlFor="date">fecha</label> 
                                 </div>
                                 
-                                <div className="flex block space-x-1.5">
+                                <div className="flex space-x-1.5">
                                     <input type="radio" name="p-option" id="cedula" value="cédula cliente" />
                                     <label htmlFor="cedula">cédula cliente</label>
                                 </div>
 
-                                <div className="flex block space-x-1.5">
+                                <div className="flex space-x-1.5">
                                     <input type="radio" name="p-option" id="idPedido" value="Id pedido" />
                                     <label htmlFor="idPedido">Id pedido</label>
                                 </div>
                             </div>
                             
-                            <div className="flex block">
-                                <input type="text" className="rounded-l-3xl shadow-sm shadow-zinc-500 text-center text-black w-36 h-8" value={inputFormText} onChange={ev => {changeOnFormTextInput(ev)}} placeholder=" pedido" />
-                                <button type="submit" className="rounded-r-3xl shadow-sm shadow-zinc-500 text-sm bg-middle-blue text-white w-14 h-8 hover:bg-cyan-100 hover:text-zinc-700">Buscar</button>
+                            <div className="flex">
+                                <input
+                                    type="text" 
+                                    className="rounded-l-3xl shadow-sm shadow-zinc-500 text-center text-black w-36 h-8" 
+                                    value={inputFormText} 
+                                    onChange={ev => {changeOnFormTextInput(ev)}} 
+                                    placeholder=" pedido" 
+                                />
+                                <button 
+                                    type="submit" 
+                                    className="rounded-r-3xl shadow-sm shadow-zinc-500 text-sm bg-middle-blue text-white w-14 h-8 hover:bg-cyan-100 hover:text-zinc-700"
+                                >
+                                    Buscar
+                                </button>
                             </div>
                             
                         </form>
