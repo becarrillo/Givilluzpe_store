@@ -69,10 +69,7 @@ const Pedidos = () => {
 
     return (
         <div className="flex flex-col p-14 bg-zinc-200">
-            
-
-
-            <div className="overflow-hidden bg-white shadow sm:rounded-lg">
+            <div className="space-3 overflow-hidden bg-white shadow sm:rounded-lg">
                 <div className="px-4 py-5 sm:px-6">
                     <h3 className="text-lg font-medium leading-6 text-gray-900">Información del pedido</h3>
                     <p className="mt-1 max-w-2xl text-sm text-gray-500">Datos de pedido con los productos listados para la entrega</p>

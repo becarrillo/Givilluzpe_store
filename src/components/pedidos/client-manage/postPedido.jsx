@@ -4,22 +4,25 @@ import { useState, useContext } from "react";
 import { TodoContext } from "../../../context/TodoContext";
 
 
-const PostPedido = (event) => {
+const PostPedido = () => {
     const [fullname, setFullname] = useState('');
     const [phone, setPhone] = useState('');
     const [address, setAddress] = useState('');
     const [town, setTown] = useState('');
     const contextApi = useContext(TodoContext);
 
-    function handSubmit() {
-        event.preventDefault();
+    async function handSubmit(e) {
+        e.preventDefault();
         const newPedido = {
             "fullname": fullname,
             "telefono": phone,
             "direccion": address,
             "municipio": town
         }
-        contextApi.fb.savePedido(newPedido);
+        if (window.confirm("¿Está seguro(a) de registrar el pedido?")) {
+            await contextApi.fb.savePedido(newPedido);
+            window.alert("1 inserción realizada");
+        }
     }
 
     function handFullNameChange(event) {

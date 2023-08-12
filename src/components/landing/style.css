@@ -3,10 +3,8 @@
     --main-bg-color: #52525b;
 }
 
-#main_title {
-    background-color: var(--main-bg-color);
-    background-image: var(--main-bg-img-url);
-    font-weight:500;
+#card-checkbox {
+    margin-left: auto;
 }
 
 #footer {

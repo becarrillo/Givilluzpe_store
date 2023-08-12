@@ -1,7 +1,6 @@
 /* eslint-disable quotes */
 import { createContext } from "react";
 import api from "../firebase";
-// import data from "./productos.json";
 
 export const TodoContext = createContext({
     fb: api,
@@ -9,8 +8,8 @@ export const TodoContext = createContext({
     productObj: null,
     productFilterResult: null,
     pagination: null,
-    setIdProductoPedido: null,
-    screenThemeToggler: false
+    productosIdPedido: null,
+    screenThemeToggler: null
 });
 
 // eslint-disable-next-line react/prop-types
@@ -24,8 +23,8 @@ export const TodoProv = ({ children }) => {
             productObj: null,
             productFilterResult: null,
             pagination: null,
-            setIdProductoPedido: null,
-            screenThemeToggler: false
+            productosIdsPedido: null,
+            screenThemeToggler: null
         }}>
             {children}
         </TodoContext.Provider>

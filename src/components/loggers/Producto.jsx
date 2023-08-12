@@ -139,9 +139,6 @@ export function ProductoLogger() {
                 className="rounded-sm bg-green-600 text-white mx-auto py-2 w-full md:w-7/12 lg:w-5/12 xl:w-7/12 2x:w-7/12 hover:bg-green-500 disabled:bg-zinc-300"
                 ref={savingBtnRef}
                 disabled={true}
-                onClick={
-                    ev => { sendNewProducto(ev) }
-                }
             >
                 GUARDAR
             </button>
@@ -149,8 +146,11 @@ export function ProductoLogger() {
     );
 
     useEffect(() => {
-        console.log(apiContext.productObj, " es el objeto de los datos Producto");
-    }, [apiContext.productObj]);
+        savingBtnRef.current.addEventListener("click" , async (ev) => {
+            await sendNewProducto(ev);
+            alert("Nueva inserción de producto realizada");
+        })
+    }, []);
 
     return pageJsxTemplate;
 }

@@ -17,7 +17,7 @@
 @media screen and (min-width: 767px) {
     #inv-container {
         width: 100vw;
-        height: 93%
+        height: 98%
     }
 
     .admin-cont {
@@ -42,7 +42,7 @@
 
 }
 
-#burguer_admin_btn > div {
+#burguer_admin_btn>div {
     width: 100%;
     height: 2px;
     border-radius: 5px;
@@ -53,12 +53,14 @@
 @media screen and (max-width: 767px) {
     .custom-css-side-menu {
         display: none;
-        visibility:hidden;
+        visibility: hidden;
     }
-    
+
     @media screen and (max-height: 1127px) {
         #asset_inventory0 {
-            height: 109vh;
+            background-size: 100%;
+            width: 100vw;
+            height: 81.6vh;
         }
 
         .admin-cont {
@@ -66,7 +68,7 @@
         }
 
         #inv-container {
-            height: 165%;
+            height: 155%;
         }
     }
 }
@@ -75,18 +77,22 @@
     #burguer_admin_btn {
         visibility: hidden;
     }
-    
+
     .admin-cont {
-        height: 121.125vh;
+        height: 100%;
     }
 
     #asset_inventory0 {
-        height: 112%;
+        background-position: 43.75%;
     }
 
     @media screen and (min-height: 1128px) {
         #asset_inventory0 {
-            height: 121.125vh;
+            height: 80vh;
+        }
+
+        #inv-container {
+            height: 178%;
         }
     }
 }
@@ -94,12 +100,16 @@
 @media screen and (min-width: 820px) {
     #asset_inventory0 {
         background-size: 189%;
-    }
+    }    
 }
 
 @media screen and (min-width: 1120px) {
+    .admin-cont {
+        height: 108.775vh;
+    }
+
     #asset_inventory0 {
         background-size: 100%;
-        height: 121.125vh;
+        height: 108.725vh;
     }
 }

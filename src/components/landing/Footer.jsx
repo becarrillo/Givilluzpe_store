@@ -6,7 +6,7 @@ function Footer() {
     return (
         <>
             <footer className="flex flex-col w-full h-44 space-y-7 pt-9 pb-7" id="footer">
-                <p className="text-center text-sm text-pink-100">Tienda virtual, nos ubicamos en Soledad, Atlántico, Colombia</p>
+                <p className="text-center text-sm text-pink-100">Tienda virtual, nos ubicamos en Barranquilla, Atlántico, Colombia</p>
                 <div className="flex flex-row text-sm text-pink-100 justify-center space-x-1.5">
                     
                     Desarrollador : <FaCopyright className="mt-1 ml-4" />

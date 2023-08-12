@@ -82,8 +82,8 @@ async function signOutFromAuth() {
   }
 }
 // eslint-disable-next-line quotes
-async function getProducto(description='') {
-  const myDescQuery = query(productosCol, where("detalle", "==", description));
+async function getProducto(detalle='') {
+  const myDescQuery = query(productosCol, where("detalle", "==", detalle));
 
   try {
     const results = await getDocs(myDescQuery);
@@ -161,31 +161,32 @@ async function removeProducto(producto) {
   });
 }
 
+async function getPedido(id) {
+  // eslint-disable-next-line quotes
+  const docRef = doc(db, "pedidos", id);
+  const result = await getDoc(docRef);
+  if (result.exists()) return result;
+  return null;
+}
+
 async function getPedidos() {
   const foundsV = await getDocs(pedidosCol);
   return foundsV.docs;
 }
 
-async function getPedido(id) {
-  var pedidoId = id;
-  const onePedidoSnapshot = await getDoc(doc(pedidosCol, pedidoId));
-  return onePedidoSnapshot;
+async function getPedidosByClientCedula(idNumber) {
+  const myClientCedulaQuery = query(pedidosCol, where("client_cedula", "==", idNumber));
+  const result = await getDocs(myClientCedulaQuery);
+  return result.docs.map(r => {return r});
 }
 
-async function getPedidoByClientNombreCompleto(fullname) {
-  const myFullNameQuery = query(pedidosCol, where("fullname", "==", fullname))
-  const result = await getDoc(myFullNameQuery);
-  return result;
-}
-
-async function getPedidoByClientTelefono(phone) {
-  const myPhoneQuery = query(pedidosCol, where("telefono", "==", phone));
-  const result = await getDoc(myPhoneQuery);
-  return result;
+async function getPedidosByClientTelefono(tel) {
+  const result = await getDocs(query(pedidosCol , where("tel" , "==", tel)));
+  return result.docs.map(r => {return r});
 }
 
 async function savePedido(pedido) {
-  const savedPedido = await addDoc(doc(db, pedidosCol), pedido);
+  const savedPedido = await addDoc(pedidosCol, pedido);
   return savedPedido;
 }
 
@@ -195,18 +196,12 @@ async function updatePedido(id, pedido) {
   return upPedido;
 }
 
-async function removePedido(pedido) {
-  const pedidoQuery = await getDocs(pedidosCol);
-  pedidoQuery.docs.map(async (doc) => {
-    var pedidoId = doc.data().id;
-    pedidoId === pedido.id
-      ? window.confirm("¿Seguro(a) que deseas borrar éste registro de pedido?") &&
-      (await deleteDoc(doc(db, pedidosCol, pedidoId)) && alert("Registro borrado exitosamente")) : alert(
-        "Error: No puedes borrar pedidos inexistentes"
-      );
-  });
+async function removePedido(pedidoId) {
+  //const pedidoQuery = await getDoc(doc(pedidosCol));
+  await deleteDoc(doc(pedidosCol, pedidoId),
+  window.alert("Registro borrado exitosamente"));
 }
-
+// rmIhbVw2G8fn6w37xc1i
 async function getAdmins() {
   const foundsAdmins = await getDocs(adminsCol);
   return foundsAdmins.docs.map(doc => doc.data());
@@ -269,8 +264,8 @@ export default {
   removeProducto,
   getPedidos,
   getPedido,
-  getPedidoByClientNombreCompleto,
-  getPedidoByClientTelefono,
+  getPedidosByClientCedula,
+  getPedidosByClientTelefono,
   savePedido,
   updatePedido,
   removePedido,
