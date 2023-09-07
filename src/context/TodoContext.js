@@ -1,14 +1,15 @@
+/* eslint-disable quotes */
 import { createContext } from "react";
 import api from "../firebase";
-// import data from "./productos.json";
 
 export const TodoContext = createContext({
-    productos: api.getProductos()
-        .then(data => { return data })
-        .catch(err => { throw new Error("Error " + err) }),
-    admin: "cuasar01",
-    password: "123456",
-    isAuth: false
+    fb: api,
+    user: null,
+    productObj: null,
+    productFilterResult: null,
+    pagination: null,
+    productosIdPedido: null,
+    screenThemeToggler: null
 });
 
 // eslint-disable-next-line react/prop-types
@@ -17,13 +18,13 @@ export const TodoProv = ({ children }) => {
     return (
         // eslint-disable-next-line react/react-in-jsx-scope
         <TodoContext.Provider value={{
-            productos: api.getProductos()
-                .then(data => { return data })
-                .catch(err => { throw new Error("Error " + err) }),
-            
-            admin: "cuasar01",
-            password: "123456",
-            isAuth: false
+            fb: api,
+            user: null,
+            productObj: null,
+            productFilterResult: null,
+            pagination: null,
+            productosIdsPedido: null,
+            screenThemeToggler: null
         }}>
             {children}
         </TodoContext.Provider>

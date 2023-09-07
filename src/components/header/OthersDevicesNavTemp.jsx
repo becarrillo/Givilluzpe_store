@@ -10,21 +10,21 @@ const OthersDevicesNavTemp = () => {
             <ul className="grid grid-cols-12 invisible text-start space-x-4 md:visible lg:visible lg:text-center xl:visible xl:text-center 2xl:text-center">
                 <li className="col-span-2">
                     <Link to="/home" className="text-sm text-air-super-blue font-semibold italic underline hover:text-middle-blue
-                    px-5 py-3 md:text-lg lg:text-lg xl:text-lg 2xl:text-xl"
+                    px-5 py-3 lg:text-lg xl:text-lg 2xl:text-xl"
                     >
                         Inicio
                     </Link>
                 </li>
                 <li className="col-span-2 w-auto">
                     <Link to="/#" className="text-sm text-air-super-blue font-semibold italic underline hover:text-middle-blue
-                    px-0 py-3 md:text-lg lg:text-lg xl:text-lg 2xl:text-xl"
+                    px-0 py-3 lg:text-lg xl:text-lg 2xl:text-xl"
                     >
                         Nosotros
                     </Link>
                 </li>
                 <li className="col-span-2">
                     <Link to="/#" className="text-sm text-center text-air-super-blue font-semibold italic underline hover:text-middle-blue
-                    hover:rounded-sm px-5 py-3 md:text-lg lg:text-lg xl:text-lg 2xl:text-xl"
+                    hover:rounded-sm px-2 py-3 lg:text-lg xl:text-lg 2xl:text-xl"
                     >
                         Cómo pedir
                     </Link>
@@ -38,7 +38,7 @@ const OthersDevicesNavTemp = () => {
                 </li>
                 <li className="col-span-2">
                     <Link to="/#" className="text-sm text-air-super-blue font-semibold italic underline 
-                    hover:text-middle-blue hover:rounded-sm md:text-lg px-0 py-3 lg:text-lg xl:text-lg 2xl:text-lg"
+                    hover:text-middle-blue hover:rounded-sm px-0 py-3 lg:text-lg xl:text-lg 2xl:text-lg"
                     >
                         Estado pedido
                     </Link>
